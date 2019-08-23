@@ -66,7 +66,7 @@
                                             label="Email"
                                             type="email"
                                             v-model="signInDetails.username"
-                                            v-on:focusout="checkSignInForm"
+                                            v-on:focusout="isEmailRegistrated"
                                             v-on:input="clearSignInError"
                                             required></v-text-field>
                                 </v-flex>
@@ -100,6 +100,7 @@
                                     <v-text-field label="Email*"
                                                   v-model="userDetails.email"
                                                   :hint="emailError"
+                                                  @focusout="checkSignUpEmail"
                                                   persistent-hint
                                                   required>
 
@@ -167,11 +168,24 @@
 
                 passwordMinSize: 3,
 
-                disableRegistrationForm: true,
                 disableSignInForm: true,
+                isSignInPasswordValid: false,
+                isSignInEmailValid: false,
+
+
+                disableRegistrationForm: true,
+                isSignUpPasswordValid: false,
+                isSignUpEmailValid: false,
+                isSignUpFirstnameAndLastnameValid: false,
+
+
+
+
 
                 alertInfo: null,
                 showAlert: false,
+
+
 
                 successInfo: null,
                 showSuccessInfo: false,
@@ -254,21 +268,31 @@
                         this.showAlert = false
                     }
                 } catch (e) {
-
+                    console.log(e)
                 }
                 else {
                     this.alertInfo = 'email не валиден'
                     this.showAlert = true
                 }
 
-                return this.showAlert
+                this.isSignInEmailValid = this.showAlert
+                this.checkSignInForm()
+
             },
-            async checkSignInForm(){
-                this.clearSignInError()
-                const isEmailValid = this.isEmailRegistrated();
-                const  isPasswordValid = this.signInDetails.password ? (this.signInDetails.password.length >= this.passwordMinSize) : null
-                this.disableSignInForm = !isEmailValid || !isPasswordValid
+            checkSignInForm(){
+
+                this.isSignInPasswordValid = (this.signInDetails.password != null) ? (this.signInDetails.password.length >= this.passwordMinSize) : false
+
+                this.disableSignInForm = this.isSignInEmailValid || !this.isSignInPasswordValid
+            },
+            checkSignUpEmail(){
+              this.isSignUpEmailValid = this.isEmailValid(this.userDetails.email)
+               this.checkSignUpForm()
+            },
+            checkSignUpForm(){
+                this.disableRegistrationForm = !this.isSignUpPasswordValid || !this.isSignUpEmailValid || !this.isSignUpFirstnameAndLastnameValid
             }
+
         },
         watch: {
 
@@ -278,11 +302,47 @@
                 } else {
                     this.passwordError = null
                 }
+                this.isSignUpPasswordValid = this.passwordError != null
             },
             model: function () {
                 this.showAlert = false
 
-            }
+            },
+
+
+            userDetails : {
+                handler(newVal, oldVal) {
+                    if(this.userDetails.firstName && this.userDetails.lastName){
+                        if(this.userDetails.firstName.length >= 4 && this.userDetails.lastName.length >= 4){
+                            this.isSignUpFirstnameAndLastnameValid = true
+                        }
+                        else {
+                            this.isSignUpFirstnameAndLastnameValid = false
+                        }
+                    } else {
+                        this.isSignUpFirstnameAndLastnameValid = false
+                    }
+
+                    if(this.userDetails.password) {
+                        if (this.userDetails.password.length < this.passwordMinSize) this.isSignUpPasswordValid = false
+                        else {
+                            if(this.repeatPassword !== this.userDetails.password){
+                                this.isSignUpPasswordValid = false
+                            }
+                            else {
+                                this.isSignUpPasswordValid = true
+                            }
+                        }
+                    } else {
+                        this.isSignUpPasswordValid = false
+                    }
+
+
+                    this.checkSignUpForm()
+                },
+                deep: true
+            },
+
         }
 
     }

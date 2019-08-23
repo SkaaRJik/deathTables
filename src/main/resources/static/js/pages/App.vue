@@ -79,9 +79,18 @@
         </v-app-bar>
 
         <v-content>
-            <v-btn @click="test">
+            <v-container>
+                <v-row>
+                    <v-btn @click="test">
 
-            </v-btn>
+                    </v-btn>
+                </v-row>
+                <v-row>
+
+                </v-row>
+
+            </v-container>
+
            <!-- <v-container
                     fluid
                     fill-height
@@ -149,7 +158,7 @@
         },
         components: {
             Auth,
-            MenuContainer
+            MenuContainer,
         },
         data() {
             return {
@@ -160,7 +169,8 @@
                         name: "Профиль",
                         link: null,
                     }
-                ]
+                ],
+
             }
         },
         computed:
@@ -170,10 +180,13 @@
             ...mapActions(['showHideDialog']),
             async test(){
                 try {
-                    const res = await deathTableAPI.getTableByBirthYearThroughAxios({birthYear: 2000,
+                    const result = await deathTableAPI.getTableByBirthYearThroughAxios({birthYear: 2000,
                     age: 4})
-                    const data = await res.json()
-                    console.log(JSON.stringify(data))
+
+                    const data = result.data
+
+                    console.log(data)
+
                 } catch (e) {
                     console.log(JSON.stringify(e))
                 }

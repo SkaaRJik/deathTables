@@ -24,7 +24,7 @@ app:
     Prefix: Bearer_
     Header: Authorization
   default:
-    avatar: I:\Java Programs\IdeaProjects\neatvue\src\main\resources\static\assets\img\default-avatar.png
+    avatar: F:\JavaProjects\deathTables\src\main\resources\static\assets\img\default-avatar.png
 
 loger:
   level:

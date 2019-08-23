@@ -25,7 +25,7 @@ public class DeathTableRestAPI {
     DeathTableService deathTableService;
 
     @GetMapping
-    public ResponseEntity<?> getDeathTable(@RequestParam Map<String, String> allParams){
+    public ResponseEntity<Object> getDeathTable(@RequestParam Map<String, String> allParams){
 
 
         try {
@@ -36,7 +36,7 @@ public class DeathTableRestAPI {
                     return ResponseEntity.ok(deathTableService.getSexDeathTableByBirthAge( Short.valueOf(String.valueOf(result.get("birthYear")))));
                 } catch (SQLDataException e) {
                     e.printStackTrace();
-                    return new ResponseEntity<String>(e.getMessage(),
+                    return new ResponseEntity(e.getMessage(),
                             HttpStatus.NOT_FOUND);
                 }
             }
@@ -44,8 +44,8 @@ public class DeathTableRestAPI {
             e.printStackTrace();
         }
 
-        return new ResponseEntity<String>(allParams.values().toString(),
-                HttpStatus.OK);
+        return new ResponseEntity("Не удалось распознать запрос",
+                HttpStatus.NO_CONTENT);
 
 
     }
