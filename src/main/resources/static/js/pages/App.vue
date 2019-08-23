@@ -85,8 +85,8 @@
 
                     </v-btn>
                 </v-row>
-                <v-row>
-
+                <v-row v-if="loaded">
+                    <line-chart :chart-data="datacollection"  :options="{responsive: true, maintainAspectRatio: true}"></line-chart>
                 </v-row>
 
             </v-container>
@@ -148,6 +148,8 @@
 
     import deathTableAPI from 'api/deathTable.js'
 
+    import LineChart from 'components/LineChart.js'
+
 
     import {mapActions, mapState} from 'vuex'
 
@@ -159,6 +161,7 @@
         components: {
             Auth,
             MenuContainer,
+            LineChart
         },
         data() {
             return {
@@ -170,6 +173,11 @@
                         link: null,
                     }
                 ],
+                datacollection: null,
+                loaded: false,
+                chartOptions: {
+                    colors: ["#F7941E", "#72C6EF", "#00A651"]
+                }
 
             }
         },
@@ -185,7 +193,36 @@
 
                     const data = result.data
 
-                    console.log(data)
+                    let maleData = {
+                        label: 'Male',
+                        data: []/*[this.getRandomInt(), this.getRandomInt()]*/
+                    }
+                    let labels = []
+                    /*data.deathNotesMale.forEach(function(item, i, arr) {
+                        labels.push(item.x)
+                        maleData.data.push(item.l)
+                    })*/
+
+                    for (let i = data.deathNotesMale.length -1 ; i >=0 ; i--) {
+                        labels.push(data.deathNotesMale[i].x)
+                        maleData.data.push(data.deathNotesMale[i].l)
+                    }
+
+                    this.datacollection = {
+                        labels,
+                        datasets: [
+                            maleData
+                        ]
+                    }
+
+                    this.loaded = true
+
+
+
+
+
+
+
 
                 } catch (e) {
                     console.log(JSON.stringify(e))

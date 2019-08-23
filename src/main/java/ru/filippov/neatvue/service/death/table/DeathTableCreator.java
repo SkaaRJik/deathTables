@@ -40,7 +40,7 @@ public class DeathTableCreator {
 
         }
 
-        return new DeathTable(femaleDeathNotes, maleDeathNotes, null, null, null);
+        return new DeathTable(lastDeathNote.getAge() ,femaleDeathNotes, maleDeathNotes, null, null, null);
 
     }
 

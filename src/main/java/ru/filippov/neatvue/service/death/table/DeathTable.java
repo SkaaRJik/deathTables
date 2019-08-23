@@ -11,6 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 public class DeathTable {
 
+    private short birthAge;
+
     private List<DeathNote> deathNotesFemale;
     private List<DeathNote> deathNotesMale;
     private List<DeathNote> deathNotesTotal;
