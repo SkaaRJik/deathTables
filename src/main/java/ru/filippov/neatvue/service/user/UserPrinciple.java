@@ -8,6 +8,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.filippov.neatvue.domain.BaseEntity;
 import ru.filippov.neatvue.domain.Role;
 import ru.filippov.neatvue.domain.User;
 
@@ -110,6 +111,9 @@ public class UserPrinciple implements UserDetails {
         Set<Role> roles = this.authorities
                 .stream().map(authority -> Role.valueOf(authority.getAuthority()))
                 .collect(Collectors.toSet());
+
+
+
 
         return User.builder()
                 .id(this.id)

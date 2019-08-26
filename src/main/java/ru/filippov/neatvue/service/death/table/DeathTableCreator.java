@@ -14,7 +14,7 @@ public class DeathTableCreator {
         /*deathNote.add(DeathNote.builder()
                 .age(deathNote.get(0).getAge())
                 .birthYear(deathNote.get(0).getBirthYear())
-                .deathDataSex(new DeathDataSex(
+                .deathDataMale(new DeathDataMale(
                         null,
                         DataType.ACTUAL,
                         0,
@@ -26,16 +26,16 @@ public class DeathTableCreator {
 
         DeathNote lastDeathNote = deathNote.get(deathNote.size() - 1);
 
-        ru.filippov.neatvue.service.death.table.DeathNote prevDeathNoteMale = DeathNoteForOneYear.builder().e(0).d(lastDeathNote.getDeathDataSex().getNumberOfLivingMale()).Lx(0).l(0).p(0).q(1).T(0).x((byte)0).build();
-        ru.filippov.neatvue.service.death.table.DeathNote prevDeathNoteFemale = DeathNoteForOneYear.builder().e(0).d(lastDeathNote.getDeathDataSex().getNumberOfLivingFemale()).Lx(0).l(0).p(0).q(1).T(0).x((byte)0).build();
+        ru.filippov.neatvue.service.death.table.DeathNote prevDeathNoteMale = DeathNoteForOneYear.builder().e(0).d(lastDeathNote.getDeathDataMale().getNumberOfLiving()).Lx(0).l(0).p(0).q(1).T(0).x((byte)0).build();
+        ru.filippov.neatvue.service.death.table.DeathNote prevDeathNoteFemale = DeathNoteForOneYear.builder().e(0).d(lastDeathNote.getDeathDataFemale().getNumberOfLiving()).Lx(0).l(0).p(0).q(1).T(0).x((byte)0).build();
 
         for (int i = deathNote.size()-1; i >= 0 ; i--) {
 
-            prevDeathNoteMale = createDeathNote(deathNote.get(i).getAge(), deathNote.get(i).getDeathDataSex().getNumberOfLivingMale(), prevDeathNoteMale);
+           /* prevDeathNoteMale = createDeathNote(deathNote.get(i).getAge(), deathNote.get(i).getDeathDataMale().getNumberOfLivingMale(), prevDeathNoteMale);
             maleDeathNotes.add( prevDeathNoteMale );
 
-            prevDeathNoteFemale = createDeathNote(deathNote.get(i).getAge(), deathNote.get(i).getDeathDataSex().getNumberOfLivingFemale(), prevDeathNoteFemale);
-            femaleDeathNotes.add( prevDeathNoteFemale );
+            prevDeathNoteFemale = createDeathNote(deathNote.get(i).getAge(), deathNote.get(i).getDeathDataMale().getNumberOfLivingFemale(), prevDeathNoteFemale);
+            femaleDeathNotes.add( prevDeathNoteFemale );*/
 
 
         }

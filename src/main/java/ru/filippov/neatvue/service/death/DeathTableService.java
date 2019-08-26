@@ -11,6 +11,7 @@ import ru.filippov.neatvue.service.death.table.DeathTable;
 import ru.filippov.neatvue.service.death.table.DeathTableCreator;
 
 import java.sql.SQLDataException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -40,8 +41,36 @@ public class DeathTableService {
 
     public DeathTable getSexDeathTableByBirthAge(short birthYear) throws SQLDataException {
 
-        List<DeathNote> deathNotes = deathNoteRepository.findAllByBirthYear(birthYear).orElseThrow(() -> new SQLDataException("Нет соответсвий данному запросу"));
+        List<DeathNote> deathNotes = deathNoteRepository
+                .findAllByBirthYear(birthYear)
+                .orElseThrow(() -> new SQLDataException("Нет соответсвий данному запросу"));
 
             return DeathTableCreator.createTableForOneYearAndSexCategory(deathNotes);
+    }
+
+    public List<DeathNote> getDeathTableOnYearBetweenAges(short year,
+                                                     byte ageFrom,
+                                                     byte ageTo) throws SQLDataException {
+
+        List<DeathNote> deathNotes = deathNoteRepository
+                .findAllByBirthYearBetweenAndAgeBetween((short) (year-ageTo), (short) (year - ageFrom), ageFrom, ageTo)
+                .orElseThrow(()-> new SQLDataException("Нет соответсвий данному запросу"));
+
+        byte currentAge = ageFrom;
+
+        List<DeathNote> result = new ArrayList<>(ageTo-ageFrom);
+
+        for (byte i = ageFrom; i < ageTo; i++) {
+            for(DeathNote deathNote : deathNotes){
+                if(deathNote.getAge() == i && deathNote.getBirthYear() == year - i){
+                    result.add(deathNote);
+                }
+            }
+        }
+
+        return result;
+
+
+
     }
 }

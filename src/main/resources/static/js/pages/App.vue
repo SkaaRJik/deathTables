@@ -48,9 +48,10 @@
 
             <v-list>
                 <v-list-item
-                        v-for="item in items"
+                        v-for="item in navigatorItems"
                         :key="item.name"
                         link
+                        :href="item.link"
                 >
                     <v-list-item-icon>
                         <v-icon>{{ item.logo }}</v-icon>
@@ -68,6 +69,17 @@
                 clipped-left
         >
             <v-toolbar-title>Нейроэволюция</v-toolbar-title>
+
+            <v-btn
+                    v-for="item in toolbarItems"
+                    :key="item.name"
+                    link
+                    :href="item.link"
+                    class="ma-2" tile outlined >
+                <v-icon left>{{item.logo}}</v-icon> {{item.name}}
+            </v-btn>
+
+
             <v-spacer></v-spacer>
 
             <auth v-if="!profile"></auth>
@@ -79,17 +91,7 @@
         </v-app-bar>
 
         <v-content>
-            <v-container>
-                <v-row>
-                    <v-btn @click="test">
 
-                    </v-btn>
-                </v-row>
-                <v-row v-if="loaded">
-                    <line-chart :chart-data="datacollection"  :options="{responsive: true, maintainAspectRatio: true}"></line-chart>
-                </v-row>
-
-            </v-container>
 
            <!-- <v-container
                     fluid
@@ -146,9 +148,8 @@
     import MenuContainer from 'components/AIconfig/MenuContainer.vue'
     import Auth from "components/Auth.vue";
 
-    import deathTableAPI from 'api/deathTable.js'
 
-    import LineChart from 'components/LineChart.js'
+
 
 
     import {mapActions, mapState} from 'vuex'
@@ -161,74 +162,62 @@
         components: {
             Auth,
             MenuContainer,
-            LineChart
+
         },
         data() {
             return {
                 drawer: null,
-                items:[
+
+                commonItems:[
+                    {
+                        logo: "bar_chart",
+                        name: "Показатели",
+                        link:  '/dashboard',
+                    }
+                ],
+
+                toolbarItems:[],
+
+                navigatorItems:[
                     {
                         logo: "assignment_ind",
                         name: "Профиль",
-                        link: null,
-                    }
+                        link: "/",
+                    },
                 ],
-                datacollection: null,
-                loaded: false,
-                chartOptions: {
-                    colors: ["#F7941E", "#72C6EF", "#00A651"]
-                }
+
 
             }
         },
-        computed:
-            mapState(['profile']),
+
+        created(){
+            console.log(this.navigatorItems)
+            console.log(this.toolbarItems)
+            let item
+            for (item of this.commonItems){
+                this.navigatorItems.push(item)
+                this.toolbarItems.push(item)
+                console.log(item)
+            }
+
+
+        },
+        computed: {
+            ...mapState(['profile']),
+            commonItemsComputed() {
+                return this.commonItems
+            },
+            toolbarItemsComputed() {
+                return this.toolbarItems
+            },
+            navigatorItemsComputed() {
+                return this.navigatorItems
+            },
+        },
 
         methods: {
             ...mapActions(['showHideDialog']),
-            async test(){
-                try {
-                    const result = await deathTableAPI.getTableByBirthYearThroughAxios({birthYear: 2000,
-                    age: 4})
 
-                    const data = result.data
-
-                    let maleData = {
-                        label: 'Male',
-                        data: []/*[this.getRandomInt(), this.getRandomInt()]*/
-                    }
-                    let labels = []
-                    /*data.deathNotesMale.forEach(function(item, i, arr) {
-                        labels.push(item.x)
-                        maleData.data.push(item.l)
-                    })*/
-
-                    for (let i = data.deathNotesMale.length -1 ; i >=0 ; i--) {
-                        labels.push(data.deathNotesMale[i].x)
-                        maleData.data.push(data.deathNotesMale[i].l)
-                    }
-
-                    this.datacollection = {
-                        labels,
-                        datasets: [
-                            maleData
-                        ]
-                    }
-
-                    this.loaded = true
-
-
-
-
-
-
-
-
-                } catch (e) {
-                    console.log(JSON.stringify(e))
-                }
-
-            }
         },
 
 

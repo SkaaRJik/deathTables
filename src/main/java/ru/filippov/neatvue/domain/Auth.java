@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -13,14 +14,10 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "auth")
 @Data
-@Builder(toBuilder = true)
+@SuperBuilder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Auth {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Auth extends BaseEntity {
 
 
     /*@ManyToOne(fetch = FetchType.LAZY)
@@ -28,7 +25,7 @@ public class Auth {
     private User user;*/
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="fk_user_id")
     private User user;
 
 

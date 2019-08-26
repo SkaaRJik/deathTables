@@ -6,7 +6,7 @@ import axios from 'axios'
 export default {
 
     getTableByBirthYear: options => {return Vue.resource('/api/public/death_table').get({options: options},{params: {}})},
-    getTableByBirthYearThroughAxios: options => {return axios.get('/api/public/death_table', {
+    getDeathTable: options => {return axios.get('/api/public/death_table', {
         params: {
             options: options
         }

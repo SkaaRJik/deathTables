@@ -5,10 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import ru.filippov.neatvue.service.death.DeathTableService;
-import ru.filippov.neatvue.service.death.table.DeathTable;
 
 import java.io.IOException;
 import java.sql.SQLDataException;
@@ -29,23 +27,31 @@ public class DeathTableRestAPI {
 
 
         try {
-            Map<String,Object> result =
+            Map<String,Object> filter =
                     new ObjectMapper().readValue(allParams.values().toString().substring(1, allParams.values().toString().length()-1), HashMap.class);
-            if(result.containsKey("birthYear")){
-                try {
-                    return ResponseEntity.ok(deathTableService.getSexDeathTableByBirthAge( Short.valueOf(String.valueOf(result.get("birthYear")))));
-                } catch (SQLDataException e) {
-                    e.printStackTrace();
-                    return new ResponseEntity(e.getMessage(),
-                            HttpStatus.NOT_FOUND);
-                }
+            if(filter.containsKey("birthYear")){
+
+                return ResponseEntity.ok(deathTableService.getSexDeathTableByBirthAge( Short.valueOf(String.valueOf(filter.get("birthYear")))));
+
+
+            } else if(filter.containsKey("year") && filter.containsKey("ageFrom") && filter.containsKey("ageTo") ){
+                return ResponseEntity.ok(deathTableService.getDeathTableOnYearBetweenAges(
+                        Short.valueOf(String.valueOf(filter.get("year"))),
+                        Byte.valueOf(String.valueOf(filter.get("ageFrom"))),
+                        Byte.valueOf(String.valueOf(filter.get("ageTo")))));
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return new ResponseEntity("Не удалось распознать запрос",
+                    HttpStatus.BAD_REQUEST);
+        } catch (SQLDataException e) {
+            e.printStackTrace();
+            return new ResponseEntity(e.getMessage(),
+                    HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity("Не удалось распознать запрос",
-                HttpStatus.NO_CONTENT);
+                HttpStatus.BAD_REQUEST);
 
 
     }

@@ -4,23 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.filippov.neatvue.domain.BaseEntity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "location")
 @Data
-@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Location {
+public class Location extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
 
-    String name;
+    private String name;
 
 
 

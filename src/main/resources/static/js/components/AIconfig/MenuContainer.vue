@@ -121,7 +121,7 @@
                 defaultConfig: null,
 
 
-                items: [
+                navigatorItems: [
                     {
                         header: 'Параметры генетического алгоритма',
                         fields: [
@@ -432,25 +432,25 @@
                         res.json().then(data => {
                             this.defaultConfig = data
                             console.log(this.defaultConfig)
-                            this.items[0].fields[0].model = this.defaultConfig.settings.GENERATOR_SEED
-                            this.items[0].fields[1].model = this.defaultConfig.settings.PROBABILITY_MUTATION
-                            this.items[0].fields[2].model = this.defaultConfig.settings.PROBABILITY_NEWACTIVATIONFUNCTION
-                            this.items[0].fields[3].model = this.defaultConfig.settings.PROBABILITY_ADDLINK
-                            this.items[0].fields[4].model = this.defaultConfig.settings.PROBABILITY_ADDNODE
-                            this.items[0].fields[5].model = this.defaultConfig.settings.PROBABILITY_MUTATEBIAS
-                            this.items[0].fields[6].model = this.defaultConfig.settings.PROBABILITY_TOGGLELINK
-                            this.items[0].fields[7].model = this.defaultConfig.settings.PROBABILITY_WEIGHT_REPLACED
+                            this.navigatorItems[0].fields[0].model = this.defaultConfig.settings.GENERATOR_SEED
+                            this.navigatorItems[0].fields[1].model = this.defaultConfig.settings.PROBABILITY_MUTATION
+                            this.navigatorItems[0].fields[2].model = this.defaultConfig.settings.PROBABILITY_NEWACTIVATIONFUNCTION
+                            this.navigatorItems[0].fields[3].model = this.defaultConfig.settings.PROBABILITY_ADDLINK
+                            this.navigatorItems[0].fields[4].model = this.defaultConfig.settings.PROBABILITY_ADDNODE
+                            this.navigatorItems[0].fields[5].model = this.defaultConfig.settings.PROBABILITY_MUTATEBIAS
+                            this.navigatorItems[0].fields[6].model = this.defaultConfig.settings.PROBABILITY_TOGGLELINK
+                            this.navigatorItems[0].fields[7].model = this.defaultConfig.settings.PROBABILITY_WEIGHT_REPLACED
 
-                            this.items[1].fields[0].model = this.defaultConfig.settings.POP_SIZE
-                            this.items[1].fields[1].model = this.defaultConfig.settings.NUMBER_EPOCHS
-                            this.items[1].fields[2].model = this.defaultConfig.settings.EXTRA_FEATURE_COUNT
-                            this.items[1].fields[3].model = this.defaultConfig.settings.KEEP_BEST_EVER
-                            this.items[1].fields[4].model = this.defaultConfig.settings.TERMINATION_VALUE_TOGGLE
-                            this.items[1].fields[5].model = this.defaultConfig.settings.TERMINATION_VALUE
+                            this.navigatorItems[1].fields[0].model = this.defaultConfig.settings.POP_SIZE
+                            this.navigatorItems[1].fields[1].model = this.defaultConfig.settings.NUMBER_EPOCHS
+                            this.navigatorItems[1].fields[2].model = this.defaultConfig.settings.EXTRA_FEATURE_COUNT
+                            this.navigatorItems[1].fields[3].model = this.defaultConfig.settings.KEEP_BEST_EVER
+                            this.navigatorItems[1].fields[4].model = this.defaultConfig.settings.TERMINATION_VALUE_TOGGLE
+                            this.navigatorItems[1].fields[5].model = this.defaultConfig.settings.TERMINATION_VALUE
 
 
                             let newArr = []
-                            for(var i = 0; i < this.items[2].layers.length; i++){
+                            for(var i = 0; i < this.navigatorItems[2].layers.length; i++){
 
                                 if(i === 0){
                                     newArr = this.defaultConfig.settings.INPUT_ACTIVATIONFUNCTIONS.split(';')
@@ -462,7 +462,7 @@
                                     newArr = this.defaultConfig.settings.OUTPUT_ACTIVATIONFUNCTIONS.split(';')
                                 }
                                 for(var j = 0 ; j < newArr.length ; j++){
-                                    this.items[2].layers[i].fields[j].model = newArr[j]
+                                    this.navigatorItems[2].layers[i].fields[j].model = newArr[j]
                                 }
                             }
 
@@ -470,30 +470,30 @@
 
 
 
-                            this.items[3].fields[0].model = this.defaultConfig.settings.INPUT_NODES
-                            this.items[3].fields[1].model = this.defaultConfig.settings.OUTPUT_NODES
-                            this.items[3].fields[2].model = this.defaultConfig.settings.MAX_PERTURB
-                            this.items[3].fields[3].model = this.defaultConfig.settings.MAX_BIAS_PERTURB
-                            this.items[3].fields[4].model = this.defaultConfig.settings.FEATURE_SELECTION
-                            this.items[3].fields[5].model = this.defaultConfig.settings.RECURRENCY_ALLOWED
+                            this.navigatorItems[3].fields[0].model = this.defaultConfig.settings.INPUT_NODES
+                            this.navigatorItems[3].fields[1].model = this.defaultConfig.settings.OUTPUT_NODES
+                            this.navigatorItems[3].fields[2].model = this.defaultConfig.settings.MAX_PERTURB
+                            this.navigatorItems[3].fields[3].model = this.defaultConfig.settings.MAX_BIAS_PERTURB
+                            this.navigatorItems[3].fields[4].model = this.defaultConfig.settings.FEATURE_SELECTION
+                            this.navigatorItems[3].fields[5].model = this.defaultConfig.settings.RECURRENCY_ALLOWED
 
-                            this.items[4].fields[0].model = this.defaultConfig.settings.EXCESS_COEFFICIENT
-                            this.items[4].fields[1].model = this.defaultConfig.settings.DISJOINT_COEFFICIENT
-                            this.items[4].fields[2].model = this.defaultConfig.settings.WEIGHT_COEFFICIENT
+                            this.navigatorItems[4].fields[0].model = this.defaultConfig.settings.EXCESS_COEFFICIENT
+                            this.navigatorItems[4].fields[1].model = this.defaultConfig.settings.DISJOINT_COEFFICIENT
+                            this.navigatorItems[4].fields[2].model = this.defaultConfig.settings.WEIGHT_COEFFICIENT
 
-                            this.items[5].fields[0].model = this.defaultConfig.settings.COMPATABILITY_THRESHOLD
-                            this.items[5].fields[1].model = this.defaultConfig.settings.COMPATABILITY_CHANGE
-                            this.items[5].fields[2].model = this.defaultConfig.settings.SPECIE_COUNT
-                            this.items[5].fields[3].model = this.defaultConfig.settings.SURVIVAL_THRESHOLD
-                            this.items[5].fields[4].model = this.defaultConfig.settings.SPECIE_AGE_THRESHOLD
-                            this.items[5].fields[5].model = this.defaultConfig.settings.SPECIE_YOUTH_THRESHOLD
-                            this.items[5].fields[6].model = this.defaultConfig.settings.SPECIE_OLD_PENALTY
-                            this.items[5].fields[7].model = this.defaultConfig.settings.SPECIE_YOUTH_BOOST
-                            this.items[5].fields[8].model = this.defaultConfig.settings.SPECIE_FITNESS_MAX
+                            this.navigatorItems[5].fields[0].model = this.defaultConfig.settings.COMPATABILITY_THRESHOLD
+                            this.navigatorItems[5].fields[1].model = this.defaultConfig.settings.COMPATABILITY_CHANGE
+                            this.navigatorItems[5].fields[2].model = this.defaultConfig.settings.SPECIE_COUNT
+                            this.navigatorItems[5].fields[3].model = this.defaultConfig.settings.SURVIVAL_THRESHOLD
+                            this.navigatorItems[5].fields[4].model = this.defaultConfig.settings.SPECIE_AGE_THRESHOLD
+                            this.navigatorItems[5].fields[5].model = this.defaultConfig.settings.SPECIE_YOUTH_THRESHOLD
+                            this.navigatorItems[5].fields[6].model = this.defaultConfig.settings.SPECIE_OLD_PENALTY
+                            this.navigatorItems[5].fields[7].model = this.defaultConfig.settings.SPECIE_YOUTH_BOOST
+                            this.navigatorItems[5].fields[8].model = this.defaultConfig.settings.SPECIE_FITNESS_MAX
 
-                            this.items[6].fields[0].model = this.defaultConfig.settings.ELE_EVENTS
-                            this.items[6].fields[1].model = this.defaultConfig.settings.ELE_SURVIVAL_COUNT
-                            this.items[6].fields[2].model = this.defaultConfig.settings.ELE_EVENT_TIME
+                            this.navigatorItems[6].fields[0].model = this.defaultConfig.settings.ELE_EVENTS
+                            this.navigatorItems[6].fields[1].model = this.defaultConfig.settings.ELE_SURVIVAL_COUNT
+                            this.navigatorItems[6].fields[2].model = this.defaultConfig.settings.ELE_EVENT_TIME
 
                         })
 
@@ -502,51 +502,51 @@
             },
             send(){
 
-                this.defaultConfig.settings.GENERATOR_SEED = this.items[0].fields[0].model;
-                this.defaultConfig.settings.PROBABILITY_MUTATION = this.items[0].fields[1].model;
-                this.defaultConfig.settings.PROBABILITY_NEWACTIVATIONFUNCTION = this.items[0].fields[2].model
-                this.defaultConfig.settings.PROBABILITY_ADDLINK = this.items[0].fields[3].model
-                this.defaultConfig.settings.PROBABILITY_ADDNODE = this.items[0].fields[4].model
-                this.defaultConfig.settings.PROBABILITY_MUTATEBIAS = this.items[0].fields[5].model
-                this.defaultConfig.settings.PROBABILITY_TOGGLELINK = this.items[0].fields[6].model
-                this.defaultConfig.settings.PROBABILITY_WEIGHT_REPLACED = this.items[0].fields[7].model
+                this.defaultConfig.settings.GENERATOR_SEED = this.navigatorItems[0].fields[0].model;
+                this.defaultConfig.settings.PROBABILITY_MUTATION = this.navigatorItems[0].fields[1].model;
+                this.defaultConfig.settings.PROBABILITY_NEWACTIVATIONFUNCTION = this.navigatorItems[0].fields[2].model
+                this.defaultConfig.settings.PROBABILITY_ADDLINK = this.navigatorItems[0].fields[3].model
+                this.defaultConfig.settings.PROBABILITY_ADDNODE = this.navigatorItems[0].fields[4].model
+                this.defaultConfig.settings.PROBABILITY_MUTATEBIAS = this.navigatorItems[0].fields[5].model
+                this.defaultConfig.settings.PROBABILITY_TOGGLELINK = this.navigatorItems[0].fields[6].model
+                this.defaultConfig.settings.PROBABILITY_WEIGHT_REPLACED = this.navigatorItems[0].fields[7].model
 
-                this.defaultConfig.settings.POP_SIZE = this.items[1].fields[0].model
-                this.defaultConfig.settings.NUMBER_EPOCHS = this.items[1].fields[1].model
-                this.defaultConfig.settings.EXTRA_FEATURE_COUNT = this.items[1].fields[2].model
-                this.defaultConfig.settings.KEEP_BEST_EVER = this.items[1].fields[3].model
-                this.defaultConfig.settings.TERMINATION_VALUE_TOGGLE = this.items[1].fields[4].model
-                this.defaultConfig.settings.TERMINATION_VALUE = this.items[1].fields[5].model
+                this.defaultConfig.settings.POP_SIZE = this.navigatorItems[1].fields[0].model
+                this.defaultConfig.settings.NUMBER_EPOCHS = this.navigatorItems[1].fields[1].model
+                this.defaultConfig.settings.EXTRA_FEATURE_COUNT = this.navigatorItems[1].fields[2].model
+                this.defaultConfig.settings.KEEP_BEST_EVER = this.navigatorItems[1].fields[3].model
+                this.defaultConfig.settings.TERMINATION_VALUE_TOGGLE = this.navigatorItems[1].fields[4].model
+                this.defaultConfig.settings.TERMINATION_VALUE = this.navigatorItems[1].fields[5].model
 
-                this.defaultConfig.settings.INPUT_ACTIVATIONFUNCTIONS=this.items[2].layers[0].fields[0].model+";"+this.items[2].layers[0].fields[1].model+";"+this.items[2].layers[0].fields[2].model
-                this.defaultConfig.settings.OUTPUT_ACTIVATIONFUNCTIONS=this.items[2].layers[2].fields[0].model+";"+this.items[2].layers[2].fields[1].model+";"+this.items[2].layers[2].fields[2].model
-                this.defaultConfig.settings.HIDDEN_ACTIVATIONFUNCTIONS=this.items[2].layers[1].fields[0].model+";"+this.items[2].layers[1].fields[1].model+";"+this.items[2].layers[1].fields[2].model
+                this.defaultConfig.settings.INPUT_ACTIVATIONFUNCTIONS=this.navigatorItems[2].layers[0].fields[0].model+";"+this.navigatorItems[2].layers[0].fields[1].model+";"+this.navigatorItems[2].layers[0].fields[2].model
+                this.defaultConfig.settings.OUTPUT_ACTIVATIONFUNCTIONS=this.navigatorItems[2].layers[2].fields[0].model+";"+this.navigatorItems[2].layers[2].fields[1].model+";"+this.navigatorItems[2].layers[2].fields[2].model
+                this.defaultConfig.settings.HIDDEN_ACTIVATIONFUNCTIONS=this.navigatorItems[2].layers[1].fields[0].model+";"+this.navigatorItems[2].layers[1].fields[1].model+";"+this.navigatorItems[2].layers[1].fields[2].model
 
-                this.defaultConfig.settings.INPUT_NODES = this.items[3].fields[0].model
-                this.defaultConfig.settings.OUTPUT_NODES = this.items[3].fields[1].model
-                this.defaultConfig.settings.MAX_PERTURB = this.items[3].fields[2].model
-                this.defaultConfig.settings.MAX_BIAS_PERTURB = this.items[3].fields[3].model
-                this.defaultConfig.settings.FEATURE_SELECTION = this.items[3].fields[4].model
-                this.defaultConfig.settings.RECURRENCY_ALLOWED = this.items[3].fields[5].model
+                this.defaultConfig.settings.INPUT_NODES = this.navigatorItems[3].fields[0].model
+                this.defaultConfig.settings.OUTPUT_NODES = this.navigatorItems[3].fields[1].model
+                this.defaultConfig.settings.MAX_PERTURB = this.navigatorItems[3].fields[2].model
+                this.defaultConfig.settings.MAX_BIAS_PERTURB = this.navigatorItems[3].fields[3].model
+                this.defaultConfig.settings.FEATURE_SELECTION = this.navigatorItems[3].fields[4].model
+                this.defaultConfig.settings.RECURRENCY_ALLOWED = this.navigatorItems[3].fields[5].model
 
 
-                this.defaultConfig.settings.EXCESS_COEFFICIENT = this.items[4].fields[0].model
-                this.defaultConfig.settings.DISJOINT_COEFFICIENT =this.items[4].fields[1].model
-                this.defaultConfig.settings.WEIGHT_COEFFICIENT =this.items[4].fields[2].model
+                this.defaultConfig.settings.EXCESS_COEFFICIENT = this.navigatorItems[4].fields[0].model
+                this.defaultConfig.settings.DISJOINT_COEFFICIENT =this.navigatorItems[4].fields[1].model
+                this.defaultConfig.settings.WEIGHT_COEFFICIENT =this.navigatorItems[4].fields[2].model
 
-                this.defaultConfig.settings.COMPATABILITY_THRESHOLD = this.items[5].fields[0].model
-                this.defaultConfig.settings.COMPATABILITY_CHANGE = this.items[5].fields[1].model
-                this.defaultConfig.settings.SPECIE_COUNT = this.items[5].fields[2].model
-                this.defaultConfig.settings.SURVIVAL_THRESHOLD = this.items[5].fields[3].model
-                this.defaultConfig.settings.SPECIE_AGE_THRESHOLD = this.items[5].fields[4].model
-                this.defaultConfig.settings.SPECIE_YOUTH_THRESHOLD = this.items[5].fields[5].model
-                this.defaultConfig.settings.SPECIE_OLD_PENALTY = this.items[5].fields[6].model
-                this.defaultConfig.settings.SPECIE_YOUTH_BOOST = this.items[5].fields[7].model
-                this.defaultConfig.settings.SPECIE_FITNESS_MAX = this.items[5].fields[8].model
+                this.defaultConfig.settings.COMPATABILITY_THRESHOLD = this.navigatorItems[5].fields[0].model
+                this.defaultConfig.settings.COMPATABILITY_CHANGE = this.navigatorItems[5].fields[1].model
+                this.defaultConfig.settings.SPECIE_COUNT = this.navigatorItems[5].fields[2].model
+                this.defaultConfig.settings.SURVIVAL_THRESHOLD = this.navigatorItems[5].fields[3].model
+                this.defaultConfig.settings.SPECIE_AGE_THRESHOLD = this.navigatorItems[5].fields[4].model
+                this.defaultConfig.settings.SPECIE_YOUTH_THRESHOLD = this.navigatorItems[5].fields[5].model
+                this.defaultConfig.settings.SPECIE_OLD_PENALTY = this.navigatorItems[5].fields[6].model
+                this.defaultConfig.settings.SPECIE_YOUTH_BOOST = this.navigatorItems[5].fields[7].model
+                this.defaultConfig.settings.SPECIE_FITNESS_MAX = this.navigatorItems[5].fields[8].model
 
-                this.defaultConfig.settings.ELE_EVENTS = this.items[6].fields[0].model
-                this.defaultConfig.settings.ELE_SURVIVAL_COUNT = this.items[6].fields[1].model
-                this.defaultConfig.settings.ELE_EVENT_TIME = this.items[6].fields[2].model
+                this.defaultConfig.settings.ELE_EVENTS = this.navigatorItems[6].fields[0].model
+                this.defaultConfig.settings.ELE_SURVIVAL_COUNT = this.navigatorItems[6].fields[1].model
+                this.defaultConfig.settings.ELE_EVENT_TIME = this.navigatorItems[6].fields[2].model
 
 
                 console.log(this.defaultConfig)
@@ -559,16 +559,16 @@
                 })
             },
             generateNewSeed(){
-                this.items[0].fields[0].model = new Date().getTime()
+                this.navigatorItems[0].fields[0].model = new Date().getTime()
 
             }
         },
         watch:{
-            items: {
+            navigatorItems: {
                 handler(newVal, oldVal){
-                    this.items[1].fields[5].show = !this.items[1].fields[4].model
-                    this.items[6].fields[1].show = !this.items[6].fields[0].model
-                    this.items[6].fields[2].show = !this.items[6].fields[0].model
+                    this.navigatorItems[1].fields[5].show = !this.navigatorItems[1].fields[4].model
+                    this.navigatorItems[6].fields[1].show = !this.navigatorItems[6].fields[0].model
+                    this.navigatorItems[6].fields[2].show = !this.navigatorItems[6].fields[0].model
 
                 },
                 deep: true

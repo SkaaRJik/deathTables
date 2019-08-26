@@ -2,9 +2,9 @@ package ru.filippov.neatvue.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +12,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,16 +20,14 @@ import java.util.stream.Collectors;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(toBuilder = true)
+@SuperBuilder(toBuilder = true)
 @Table(name = "usr", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
                 "email"
         })
 })
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class User extends BaseEntity {
+
 
     @Column
     @NotBlank
