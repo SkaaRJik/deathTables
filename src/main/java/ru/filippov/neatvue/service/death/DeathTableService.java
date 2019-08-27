@@ -12,7 +12,9 @@ import ru.filippov.neatvue.service.death.table.DeathTableCreator;
 
 import java.sql.SQLDataException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -48,9 +50,9 @@ public class DeathTableService {
             return DeathTableCreator.createTableForOneYearAndSexCategory(deathNotes);
     }
 
-    public List<DeathNote> getDeathTableOnYearBetweenAges(short year,
-                                                     byte ageFrom,
-                                                     byte ageTo) throws SQLDataException {
+    public List<Map> getDeathTableOnYearBetweenAges(short year,
+                                                    byte ageFrom,
+                                                    byte ageTo) throws SQLDataException {
 
         List<DeathNote> deathNotes = deathNoteRepository
                 .findAllByBirthYearBetweenAndAgeBetween((short) (year-ageTo), (short) (year - ageFrom), ageFrom, ageTo)
@@ -58,12 +60,42 @@ public class DeathTableService {
 
         byte currentAge = ageFrom;
 
-        List<DeathNote> result = new ArrayList<>(ageTo-ageFrom);
+        List<Map> result = new ArrayList<>(ageTo-ageFrom);
+
+
 
         for (byte i = ageFrom; i < ageTo; i++) {
             for(DeathNote deathNote : deathNotes){
                 if(deathNote.getAge() == i && deathNote.getBirthYear() == year - i){
-                    result.add(deathNote);
+                    Map<String, Object> obj = new HashMap<>(8);
+
+                    obj.put("location", deathNote.getLocation().getName());
+
+                    obj.put("age", deathNote.getAge());
+
+                    obj.put("birthYear", deathNote.getBirthYear());
+
+                    if(deathNote.getDeathDataFemale() != null) {
+                        obj.put("female", deathNote.getDeathDataFemale());
+                    }
+
+                    if(deathNote.getDeathDataMale() != null) {
+                        obj.put("male", deathNote.getDeathDataMale());
+                    }
+
+                    if(deathNote.getDeathDataTotal() != null) {
+                        obj.put("total", deathNote.getDeathDataTotal());
+                    }
+
+                    if(deathNote.getDeathDataCityDweller() != null) {
+                        obj.put("citizen", deathNote.getDeathDataCityDweller());
+                    }
+
+                    if(deathNote.getDeathDataVillager() != null) {
+                        obj.put("villager", deathNote.getDeathDataVillager());
+                    }
+
+                    result.add(obj);
                 }
             }
         }

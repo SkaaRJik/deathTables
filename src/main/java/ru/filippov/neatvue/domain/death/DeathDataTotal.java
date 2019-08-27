@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 public class DeathDataTotal extends DeathData {
 
 
+
     /*@Column(name = "number_of_living_total")
     protected Integer numberOfLivingTotal;
 
@@ -23,4 +24,14 @@ public class DeathDataTotal extends DeathData {
     @JoinColumn(name = "fk_death_note_id")
     protected DeathNote deathNote;*/
 
+    public DeathDataTotal(@NotNull DataType dataType, @NotNull Integer numberOfLiving, Integer numberOfDying, Double probabilityToDie, Double probabilityToSurvive, Integer averageLiving, Integer agesToLiveForPopulation, Double expectedAgesOfAPerson, DeathNote deathNote) {
+        super(dataType, numberOfLiving, numberOfDying, probabilityToDie, probabilityToSurvive, averageLiving, agesToLiveForPopulation, expectedAgesOfAPerson, deathNote);
+    }
+
+    public DeathDataTotal() {
+    }
+
+    public DeathDataTotal(Long id, DataType dataType) {
+        super(id, dataType);
+    }
 }
