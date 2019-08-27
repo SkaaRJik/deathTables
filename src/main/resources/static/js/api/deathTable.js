@@ -11,6 +11,12 @@ export default {
             options: options
         }
     })},
+    getAllAges: function () {return axios.get('/api/public/death_table/ages', {
+
+    })},
+    getAllBirthYears: function () {return axios.get('/api/public/death_table/birth_years', {
+
+    })},
 
 
     }

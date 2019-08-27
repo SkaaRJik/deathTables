@@ -8,9 +8,6 @@ export default {
     signUp: signUpDetails => {return Vue.resource('/api/public/auth/signup').save({}, signUpDetails)},
     isEmailRegistrated: email => {return Vue.resource('/api/public/auth/check-email').get({email: email})},
     updateTokens(tokens) {return Vue.resource('/api/private/auth/refresh-token').update({}, tokens)},
-    test: accessToken => {
-        return Vue.http.get('/api/private/trainer/default-config', {})
-    },
     runTokenWatcher() {
         const savedThis = this
         if(Store.state.profile!=null) {
@@ -18,7 +15,6 @@ export default {
                 console.log('Old token : \n' + JSON.stringify(Store.state.profile.token))
                 savedThis.updateTokens(Store.state.profile.token).then(result => {
                     result.json().then(newTokens => {
-                        console.log('New token : \n' + JSON.stringify(newTokens))
                         Store.dispatch("updateTokens", newTokens)
                         timerId = setTimeout(tick, newTokens.accessTokenExpiredIn)
                     })

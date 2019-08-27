@@ -1,6 +1,7 @@
 package ru.filippov.neatvue.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.filippov.neatvue.domain.death.DeathNote;
 
@@ -16,4 +17,11 @@ public interface DeathNoteRepository extends JpaRepository<DeathNote, Long> {
     Optional<List<DeathNote>> findAllByBirthYear( short birthYear);
     Optional<List<DeathNote>> findAllByBirthYearBetween( short birthYearFrom, short birthYearTo);
     Optional<DeathNote> findByBirthYearAndAge(short birthYear, byte age);
+
+    @Query("SELECT DISTINCT u.birthYear FROM DeathNote u ORDER BY u.birthYear")
+    Optional<List<Short>> findDistinctBirthYears();
+
+    @Query("SELECT DISTINCT u.age FROM DeathNote u ORDER BY u.age")
+    Optional<List<Byte>> findDistinctAges();
+
 }

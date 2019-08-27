@@ -105,4 +105,15 @@ public class DeathTableService {
 
 
     }
+
+    public List<Byte> getAllAges() throws SQLDataException {
+        return this.deathNoteRepository.findDistinctAges().orElseThrow(()-> new SQLDataException("Нет соответсвий данному запросу"));
+
+
+    }
+
+    public List<Short> getAllBirthYears() throws SQLDataException {
+        return this.deathNoteRepository.findDistinctBirthYears().orElseThrow(()-> new SQLDataException("Нет соответсвий данному запросу"));
+
+    }
 }

@@ -68,7 +68,7 @@
                 app
                 clipped-left
         >
-            <v-toolbar-title>Нейроэволюция</v-toolbar-title>
+            <v-toolbar-title>Таблицы смертности</v-toolbar-title>
 
             <v-btn
                     v-for="item in toolbarItems"
@@ -85,7 +85,7 @@
             <auth v-if="!profile"></auth>
 
             <v-avatar v-else :tile="false" @click.stop="drawer = !drawer">
-                <img v-bind:src="'data:image/jpeg;base64,'+profile.avatar" alt="avatar">
+                <img :src="'data:image/jpeg;base64,'+profile.avatar" alt="avatar">
             </v-avatar>
 
         </v-app-bar>
@@ -171,8 +171,8 @@
                 commonItems:[
                     {
                         logo: "bar_chart",
-                        name: "Показатели",
-                        link:  '/dashboard',
+                        name: "Статистика",
+                        link:  '/statistic',
                     }
                 ],
 
@@ -191,13 +191,10 @@
         },
 
         created(){
-            console.log(this.navigatorItems)
-            console.log(this.toolbarItems)
-            let item
-            for (item of this.commonItems){
+            for (let item of this.commonItems){
                 this.navigatorItems.push(item)
                 this.toolbarItems.push(item)
-                console.log(item)
+
             }
 
 

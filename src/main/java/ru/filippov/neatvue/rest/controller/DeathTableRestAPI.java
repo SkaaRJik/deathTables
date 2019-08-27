@@ -11,6 +11,7 @@ import ru.filippov.neatvue.service.death.DeathTableService;
 import java.io.IOException;
 import java.sql.SQLDataException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -24,7 +25,6 @@ public class DeathTableRestAPI {
 
     @GetMapping
     public ResponseEntity<Object> getDeathTable(@RequestParam Map<String, String> allParams){
-
 
         try {
             Map<String,Object> filter =
@@ -54,6 +54,29 @@ public class DeathTableRestAPI {
                 HttpStatus.BAD_REQUEST);
 
 
+    }
+
+    @GetMapping("/birth_years")
+    public ResponseEntity<Object> getBirthYears(){
+        try {
+            return ResponseEntity.ok(this.deathTableService.getAllBirthYears());
+        } catch (SQLDataException e) {
+            e.printStackTrace();
+            return new ResponseEntity(e.getMessage(),
+                    HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @GetMapping("/ages")
+    public ResponseEntity<Object> getAges(){
+        try {
+            return ResponseEntity.ok(this.deathTableService.getAllAges());
+        } catch (SQLDataException e) {
+            e.printStackTrace();
+            return new ResponseEntity(e.getMessage(),
+                    HttpStatus.NOT_FOUND);
+        }
     }
 
 
