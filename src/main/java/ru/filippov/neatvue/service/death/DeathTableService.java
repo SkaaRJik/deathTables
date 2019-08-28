@@ -2,7 +2,6 @@ package ru.filippov.neatvue.service.death;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.filippov.neatvue.domain.death.DeathNote;
@@ -67,35 +66,35 @@ public class DeathTableService {
         for (byte i = ageFrom; i < ageTo; i++) {
             for(DeathNote deathNote : deathNotes){
                 if(deathNote.getAge() == i && deathNote.getBirthYear() == year - i){
-                    Map<String, Object> obj = new HashMap<>(8);
+                    Map<String, Object> jsonObj = new HashMap<>(8);
 
-                    obj.put("location", deathNote.getLocation().getName());
+                    jsonObj.put("location", deathNote.getLocation().getName());
 
-                    obj.put("age", deathNote.getAge());
+                    jsonObj.put("age", deathNote.getAge());
 
-                    obj.put("birthYear", deathNote.getBirthYear());
+                    jsonObj.put("birthYear", deathNote.getBirthYear());
 
                     if(deathNote.getDeathDataFemale() != null) {
-                        obj.put("female", deathNote.getDeathDataFemale());
+                        jsonObj.put("female", deathNote.getDeathDataFemale());
                     }
 
                     if(deathNote.getDeathDataMale() != null) {
-                        obj.put("male", deathNote.getDeathDataMale());
+                        jsonObj.put("male", deathNote.getDeathDataMale());
                     }
 
                     if(deathNote.getDeathDataTotal() != null) {
-                        obj.put("total", deathNote.getDeathDataTotal());
+                        jsonObj.put("total", deathNote.getDeathDataTotal());
                     }
 
                     if(deathNote.getDeathDataCityDweller() != null) {
-                        obj.put("citizen", deathNote.getDeathDataCityDweller());
+                        jsonObj.put("citizen", deathNote.getDeathDataCityDweller());
                     }
 
                     if(deathNote.getDeathDataVillager() != null) {
-                        obj.put("villager", deathNote.getDeathDataVillager());
+                        jsonObj.put("villager", deathNote.getDeathDataVillager());
                     }
 
-                    result.add(obj);
+                    result.add(jsonObj);
                 }
             }
         }
