@@ -10,37 +10,23 @@ export default {
     updateTokens(tokens) {return Vue.resource('/api/private/auth/refresh-token').update({}, tokens)},
     runTokenWatcher() {
         const savedThis = this
-        if(Store.state.profile!=null) {
-            let timerId = setTimeout(function tick() {
-                console.log('Old token : \n' + JSON.stringify(Store.state.profile.token))
-                savedThis.updateTokens(Store.state.profile.token).then(result => {
-                    result.json().then(newTokens => {
-                        Store.dispatch("updateTokens", newTokens)
-                        timerId = setTimeout(tick, newTokens.accessTokenExpiredIn)
-                    })
-                })
 
+            if (Store.state.profile != null) {
+                try {
+                let timerId = setTimeout(async function tick() {
+                    console.log('Old token : \n' + JSON.stringify(Store.state.profile.token))
+                    const result = await savedThis.updateTokens(Store.state.profile.token)
+                    const newTokens = await result.json()
+                    Store.dispatch("updateTokens", newTokens)
 
-                Store.dispatch('setTokenRefresher', timerId)
-            }, Store.state.profile.token.accessTokenExpiredIn);
-        }
-        /*if(Store.state.profile!=null){
-            console.log('Old token : \n' + Store.state.profile.token)
-            this.updateTokens(Store.state.profile.token).then(result => {
-                result.json().then(newTokens => {
-                    console.log('New token : \n' + newTokens)
-                    Store.dispatch('updateTokens', newTokens);
+                    timerId = setTimeout(tick, newTokens.accessTokenExpiredIn - newTokens.accessTokenExpiredIn / 5)
+                    Store.dispatch('setTokenRefresher', timerId)
 
-                    const tokenRefresher =  setTimeout(function () {
-                        console.log("runTokenWatcher starting by timer")
-                        this.runTokenWatcher()
-                    }, newTokens.accessTokenExpiredIn)
+                }, Store.state.profile.token.accessTokenExpiredIn - Store.state.profile.token.accessTokenExpiredIn / 5);
+                } catch (e) {
+                    Store.dispatch("logout")
+                }
+            }
 
-                    Store.dispatch('setTokenRefresher', tokenRefresher)
-                    console.log("tokenRefresher setted. \nFINISH!")
-                })
-            })
-        }*/
     }
-
 }

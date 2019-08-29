@@ -1,6 +1,6 @@
-<template>
-    <v-container class="d-flex align-content-center flex-wrap">
-        <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+   <!-- <v-container class="d-flex align-content-center flex-wrap">
+        &lt;!&ndash; Stack the columns on mobile by making one full-width and the other half-width &ndash;&gt;
 
         <v-row>
             <v-col
@@ -18,7 +18,7 @@
 
                     <v-chip-group
                             column
-                            active-class="primary--text"
+                            active-class="primary&#45;&#45;text"
                             multiple
                             v-model="yearSelector"
                     >
@@ -32,7 +32,7 @@
                 </v-card>
             </v-col>
 
-            <!--Вторая колонка-->
+            &lt;!&ndash;Вторая колонка&ndash;&gt;
 
             <v-col
 
@@ -48,7 +48,7 @@
                     <label>Данные по дате рождения</label>
                     <v-chip-group
                             column
-                            active-class="primary--text"
+                            active-class="primary&#45;&#45;text"
                             v-model="birthYearSelector"
                     >
                         <v-chip>
@@ -102,7 +102,7 @@
 
                         <v-chip-group
                                 column
-                                active-class="primary--text"
+                                active-class="primary&#45;&#45;text"
                                 v-model="ageForBirthYearSelector"
                         >
                             <v-chip>
@@ -156,7 +156,7 @@
             </v-col>
 
 
-            <!--Третья колонка-->
+            &lt;!&ndash;Третья колонка&ndash;&gt;
 
             <v-col
 
@@ -172,7 +172,7 @@
                     <label>Данные на год</label>
                     <v-chip-group
                             column
-                            active-class="primary--text"
+                            active-class="primary&#45;&#45;text"
                             v-model="calendarYearSelector"
                     >
                         <v-chip>
@@ -226,7 +226,7 @@
 
                         <v-chip-group
                                 column
-                                active-class="primary--text"
+                                active-class="primary&#45;&#45;text"
                                 v-model="ageForCalendarYearSelector"
                         >
                             <v-chip>
@@ -306,7 +306,7 @@
             </v-col>
         </v-row>
 
-        <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+        &lt;!&ndash; Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop &ndash;&gt;
         <v-row>
             <v-col
                     v-for="n in 3"
@@ -324,7 +324,7 @@
             </v-col>
         </v-row>
 
-        <!-- Columns are always 50% wide, on mobile and desktop -->
+        &lt;!&ndash; Columns are always 50% wide, on mobile and desktop &ndash;&gt;
         <v-row>
             <v-col
                     v-for="n in 2"
@@ -340,7 +340,101 @@
                 </v-card>
             </v-col>
         </v-row>
-    </v-container>
+    </v-container>-->
+    <v-content>
+    <v-navigation-drawer
+            v-model="drawer"
+            app
+            clipped
+    >
+        <v-list dense>
+            <v-list-item
+                    v-for="item in items"
+                    :key="item.text"
+                    @click=""
+            >
+                <v-list-item-action>
+                    <v-icon>{{ item.icon }}</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                    <v-list-item-title>
+                        {{ item.text }}
+                    </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+            <v-subheader class="mt-3 grey--text text--darken-1">SUBSCRIPTIONS</v-subheader>
+            <v-list>
+                <v-list-item
+                        v-for="item in items2"
+                        :key="item.text"
+                        @click=""
+                >
+                    <v-list-item-avatar>
+                        <img
+                                :src="`https://randomuser.me/api/portraits/men/${item.picture}.jpg`"
+                                alt=""
+                        >
+                    </v-list-item-avatar>
+                    <v-list-item-title v-text="item.text"></v-list-item-title>
+                </v-list-item>
+            </v-list>
+            <v-list-item
+                    class="mt-3"
+                    @click=""
+            >
+                <v-list-item-action>
+                    <v-icon color="grey darken-1">add_circle_outline</v-icon>
+                </v-list-item-action>
+                <v-list-item-title class="grey--text text--darken-1">Browse Channels</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="">
+                <v-list-item-action>
+                    <v-icon color="grey darken-1">settings</v-icon>
+                </v-list-item-action>
+                <v-list-item-title class="grey--text text--darken-1">Manage Subscriptions</v-list-item-title>
+            </v-list-item>
+        </v-list>
+    </v-navigation-drawer>
+
+        <v-container fill-height>
+            <v-layout
+                    justify-center
+                    align-center
+            >
+                <v-flex shrink>
+                    <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+                    <v-tooltip right>
+                        <template v-slot:activator="{ on }">
+                            <v-btn
+                                    icon
+                                    large
+                                    target="_blank"
+                                    v-on="on"
+                            >
+                                <v-icon large>mdi-code-tags</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Source</span>
+                    </v-tooltip>
+                    <v-tooltip right>
+                        <template v-slot:activator="{ on }">
+                            <v-btn
+                                    icon
+                                    large
+                                    href="https://codepen.io/johnjleider/pen/aezMOO"
+                                    target="_blank"
+                                    v-on="on"
+                            >
+                                <v-icon large>mdi-codepen</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Codepen</span>
+                    </v-tooltip>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-content>
+
 </template>
 
 <script>
@@ -355,6 +449,27 @@
         },
         data() {
             return {
+
+                drawer: null,
+                items: [
+                    { icon: 'trending_up', text: 'Most Popular' },
+                    { icon: 'subscriptions', text: 'Subscriptions' },
+                    { icon: 'history', text: 'History' },
+                    { icon: 'featured_play_list', text: 'Playlists' },
+                    { icon: 'watch_later', text: 'Watch Later' },
+                ],
+                items2: [
+                    { picture: 28, text: 'Joseph' },
+                    { picture: 38, text: 'Apple' },
+                    { picture: 48, text: 'Xbox Ahoy' },
+                    { picture: 58, text: 'Nokia' },
+                    { picture: 78, text: 'MKBHD' },
+                ],
+
+
+
+
+
                 yearSelector: [],
 
 

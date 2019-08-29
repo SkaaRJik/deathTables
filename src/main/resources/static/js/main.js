@@ -18,4 +18,7 @@ var app = new Vue({
     router,
     vuetify,
     render: a => a(App)
+
+
+
 })

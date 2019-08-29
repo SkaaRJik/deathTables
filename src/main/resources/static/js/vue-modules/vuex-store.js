@@ -30,6 +30,11 @@ export default new Vuex.Store({
 
         setTokenRefresherMutation(state, tokenRefresher){
             state.tokenRefresher = tokenRefresher
+        },
+
+        logoutMutation(state){
+            state.profile = null
+            this.$router.replace('/')
         }
 
     },
@@ -57,6 +62,12 @@ export default new Vuex.Store({
         },
         getAccessToken({commit, state}){
             return state.profile == null ? null : state.profile.token.accessToken
+        },
+
+        logout({commit, state}){
+            commit('logoutMutation')
+
         }
+
     }
 })
